@@ -1,0 +1,182 @@
+<html id='login-form-v1.2'>
+<head>
+		<style>
+			.demographic-columns {display: flex;}
+			article { 
+				display: grid;
+				grid-template-columns: 22px 160px;
+				margin-left: 20px;
+			}
+			article > * {
+				margin-bottom: 2px;
+			}
+			textarea {
+				overflow: 'scroll';
+				resize: none;
+			}
+		</style>
+</head>
+<body>
+	<form action="/venture/add/submit" method="post">
+		<fieldset>
+			<legend>Create Venture</legend>
+			<section>
+				<input type='text' name='token_id' placeholder='token_id' />
+				<input type='text' name='public_token' placeholder='public_token' />
+				<input type='text' name='universal_id' placeholder='universal_id' />
+			</section>
+			<hr />
+			<section>
+				<p>Give a brief description of the marketing action, trial period, user-engagement goals, sales goal, and target-market.</p>
+				<textarea rows="4" cols="50" name="venture_description"></textarea>
+			</section>
+			<hr />
+			<section>
+				<label>Trial Period Start Date: </label>
+				<input type='date' name='start_date' placeholder='start_date' />
+				<label>Trial Period End Date: </label>
+				<input type='date' name='end_date' placeholder='end_date' />
+			</section>
+			<hr />
+			<section>
+				<label>Minimum Amount per sale: </label>
+				<input type="number" name="amount_min" step='.01'>
+				<label>Maximum Amount per sale: </label>
+				<input type="number" name="amount_max" step='.01'>
+			</section>
+			<hr />
+			<section>
+				<p>What target user actions are you looking for</p>
+				<select name='engagement1'>
+					<option value="empty"></option>
+				  <option value="login-form-v1.2">Login</option>
+				  <option value="access-list-v1.2">List Access</option>
+				  <option value="demographic-add-form-v1.2">Take Survey</option>
+				  <option value="sale-add-form-v1.2">Make Payment</option>
+				</select>
+				<span>--></span>
+				<select name='engagement2'>
+					<option value="empty"></option>
+				  <option value="login-form-v1.2">Login</option>
+				  <option value="access-list-v1.2">List Access</option>
+				  <option value="demographic-add-form-v1.2">Take Survey</option>
+				  <option value="sale-add-form-v1.2">Make Payment</option>
+				</select>
+				<span>--></span>
+				<select name='engagement3'>
+					<option value="empty"></option>
+				  <option value="login-form-v1.2">Login</option>
+				  <option value="access-list-v1.2">List Access</option>
+				  <option value="demographic-add-form-v1.2">Take Survey</option>
+				  <option value="sale-add-form-v1.2">Make Payment</option>
+				</select>
+				<span>--></span>
+				<select name='engagement4'>
+					<option value="empty"></option>
+				  <option value="login-form-v1.2">Login</option>
+				  <option value="access-list-v1.2">List Access</option>
+				  <option value="demographic-add-form-v1.2">Take Survey</option>
+				  <option value="sale-add-form-v1.2">Make Payment</option>
+				</select>
+			</section>
+			<hr />
+			<p>What demographics are in your target-market?<p>
+			<section class='demographic-columns'>
+				<article>
+					<input type="checkbox" name="age1" value="<12">
+					<label for="<12">under 12 years old</label>
+			  	<input type="checkbox" name="age2" value="12-17">
+			  	<label for="12-17">12-17 years old</label>
+			  	<input type="checkbox" name="age3" value="18-24">
+			  	<label for="18-24">18-24 years old</label>
+ 			  	<input type="checkbox" name="age4" value="25-34">
+			  	<label for="25-34">25-34 years old</label>
+			  	<input type="checkbox" name="age5" value="35-44">
+			  	<label for="35-44">35-44 years old</label>
+			  	<input type="checkbox" name="age6" value="45-54">
+			  	<label for="45-54">45-54 years old</label>
+			  	<input type="checkbox" name="age7" value="55-64">
+			  	<label for="55-64">55-64 years old</label>
+			  	<input type="checkbox" name="age8" value="36-74">
+			  	<label for="65-74">65-74 years old</label>
+			  	<input type="checkbox" name="age9" value=">75">
+			  	<label for=">75">75 years or older</label>
+			  </article>
+			  <article>
+					<input type="checkbox" name="ethnicity1" value="white">
+					<label for="white">White</label>
+			  	<input type="checkbox" name="ethnicity2" value="hispanic">
+			  	<label for="hispanic">Hispanic or Latino</label>
+			  	<input type="checkbox" name="ethnicity3" value="black">
+			  	<label for="18-24">Black or African American</label>
+ 			  	<input type="checkbox" name="ethnicity4" value="native_american">
+			  	<label for="25-34">Native American</label>
+			  	<input type="checkbox" name="ethnicity5" value="asian">
+			  	<label for="35-44">Asian/Pacific Islander</label>
+			  	<input type="checkbox" name="ethnicity6" value="other">
+			  	<label for="45-54">Other</label>	
+			  </article>
+			  <article>
+					<input type="checkbox" name="education1" value="none">
+					<label for="none">No schooling</label>
+			  	<input type="checkbox" name="education2" value="k-8">
+			  	<label for="k-8">Nursery to 8th grade</label>
+			  	<input type="checkbox" name="education3" value="incomplete_highschool">
+			  	<label for="incomplete_highschool">Some high school, no diploma</label>
+ 			  	<input type="checkbox" name="education4" value="highschool_diploma">
+			  	<label for="highschool_diploma">High school graduate, diploma or equivalent (e.g. GED)</label>
+			  	<input type="checkbox" name="education5" value="incomplete_college">
+			  	<label for="incomplete_college">Some college credit, no degree</label>
+			  	<input type="checkbox" name="education6" value="vocational_training">
+					<label for="vocational_training">Trade/technical/vocational training</label>
+			  	<input type="checkbox" name="education7" value="associate_degree">
+			  	<label for="associate_degree">Associate degree</label>
+			  	<input type="checkbox" name="education8" value="bachelors_degree">
+			  	<label for="bachelors_degree">Bachelor's degree</label>
+ 			  	<input type="checkbox" name="education9" value="masters_degree">
+			  	<label for="masters_degree">Master's degree</label>
+			  	<input type="checkbox" name="education10" value="professional_degree">
+			  	<label for="professional_degree">Professional degree </label>
+			  	<input type="checkbox" name="education11" value="doctorate_degree">
+			  	<label for="doctorate_degree">Doctorate degree </label>
+			  </article>
+			  <article>
+					<input type="checkbox" name="marital_status1" value="single">
+					<label for="single">Single, never married</label>
+			  	<input type="checkbox" name="marital_status2" value="married">
+			  	<label for="married">Married or domestic partnership</label>
+			  	<input type="checkbox" name="marital_status3" value="widowed">
+			  	<label for="widowed">Widowed</label>
+ 			  	<input type="checkbox" name="marital_status4" value="divorced">
+			  	<label for="divorced">Divorced</label>
+			  	<input type="checkbox" name="marital_status5" value="separated">
+			  	<label for="separated">Separated</label>
+			  </article>
+			  <article>
+					<input type="checkbox" name="employment_status1" value="employed">
+					<label for="employed">Employed for wages</label>
+			  	<input type="checkbox" name="employment_status" value="self-employed">
+			  	<label for="self-employed">Self-employed</label>
+			  	<input type="checkbox" name="employment_status2" value="looking">
+			  	<label for="looking">Out of work and looking for work</label>
+ 			  	<input type="checkbox" name="employment_status3" value="unemployed">
+			  	<label for="unemployed">Out of work but not currently looking</label>
+			  	<input type="checkbox" name="employment_status4" value="homemaker">
+			  	<label for="homemaker">A homemaker</label>
+			  	<input type="checkbox" name="employment_status5" value="student">
+					<label for="student">A student</label>
+			  	<input type="checkbox" name="employment_status6" value="military">
+			  	<label for="military">Military</label>
+			  	<input type="checkbox" name="employment_status7" value="retired">
+			  	<label for="retired">Retired</label>
+ 			  	<input type="checkbox" name="employment_status8" value="disabled">
+			  	<label for="disabled">Unable to work</label>
+			  </article>
+		  </section>
+		  <hr />
+			<input type='hidden' name='form_id' value='venture-add-form-v1.2' />
+			<input type='submit' value='Create Venture' />
+		</fieldset>
+	</form>
+</body>
+</html>

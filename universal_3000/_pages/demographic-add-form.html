@@ -1,0 +1,132 @@
+<html id='demographic-add-form-v1.2'>
+<head>
+		<style>
+			article { 
+				display: grid;
+				grid-template-columns: 22px 200px;
+				margin-left: 20px;
+			}
+			article > * {
+				margin-bottom: 2px;
+			}
+		</style>
+</head>
+<body>
+		<form action="/demographic/add/submit" method="post">
+			<fieldset>
+				<legend>Demographic Survey</legend>
+				<input type='text' name='token_id' placeholder='token_id' />
+				<input type='text' name='public_token' placeholder='public_token' />
+				<input type='text' name='cred_id' placeholder='cred_id' />
+				<p>What is your age?</p>
+				<article>
+					<input type="radio" name="age" value="<12">
+					<label for="<12">under 12 years old</label>
+			  	<input type="radio" name="age" value="12-17">
+			  	<label for="12-17">12-17 years old</label>
+			  	<input type="radio" name="age" value="18-24">
+			  	<label for="18-24">18-24 years old</label>
+ 			  	<input type="radio" name="age" value="25-34">
+			  	<label for="25-34">25-34 years old</label>
+			  	<input type="radio" name="age" value="35-44">
+			  	<label for="35-44">35-44 years old</label>
+			  	<input type="radio" name="age" value="45-54">
+			  	<label for="45-54">45-54 years old</label>
+			  	<input type="radio" name="age" value="55-64">
+			  	<label for="55-64">55-64 years old</label>
+			  	<input type="radio" name="age" value="36-74">
+			  	<label for="65-74">65-74 years old</label>
+			  	<input type="radio" name="age" value=">75">
+			  	<label for=">75">75 years or older</label>
+			  </article>
+			  <hr />
+
+			  <p>Please specify your ethnicity.</p>
+			  <article>
+					<input type="radio" name="ethnicity" value="white">
+					<label for="white">White</label>
+			  	<input type="radio" name="ethnicity" value="hispanic">
+			  	<label for="hispanic">Hispanic or Latino</label>
+			  	<input type="radio" name="ethnicity" value="black">
+			  	<label for="18-24">Black or African American</label>
+ 			  	<input type="radio" name="ethnicity" value="native_american">
+			  	<label for="25-34">Native American</label>
+			  	<input type="radio" name="ethnicity" value="asian">
+			  	<label for="35-44">Asian/Pacific Islander</label>
+			  	<input type="radio" name="ethnicity" value="other">
+			  	<label for="45-54">Other</label>	
+			  </article>
+			  <hr />
+
+			  <p>What is the highest level of education that you have completed?</p>
+			  <article>
+					<input type="radio" name="education" value="none">
+					<label for="none">No schooling</label>
+			  	<input type="radio" name="education" value="k-8">
+			  	<label for="k-8">Nursery to 8th grade</label>
+			  	<input type="radio" name="education" value="incomplete_highschool">
+			  	<label for="incomplete_highschool">Some high school, no diploma</label>
+ 			  	<input type="radio" name="education" value="highschool_diploma">
+			  	<label for="highschool_diploma">High school graduate, diploma or equivalent (e.g. GED)</label>
+			  	<input type="radio" name="education" value="incomplete_college">
+			  	<label for="incomplete_college">Some college credit, no degree</label>
+			  	<input type="radio" name="education" value="vocational_training">
+					<label for="vocational_training">Trade/technical/vocational training</label>
+			  	<input type="radio" name="education" value="associate_degree">
+			  	<label for="associate_degree">Associate degree</label>
+			  	<input type="radio" name="education" value="bachelors_degree">
+			  	<label for="bachelors_degree">Bachelor's degree</label>
+ 			  	<input type="radio" name="education" value="masters_degree">
+			  	<label for="masters_degree">Master's degree</label>
+			  	<input type="radio" name="education" value="professional_degree">
+			  	<label for="professional_degree">Professional degree </label>
+			  	<input type="radio" name="education" value="doctorate_degree">
+			  	<label for="doctorate_degree">Doctorate degree </label>
+			  </article>
+			  <hr />
+
+			  <p>What is your marital status?</p>
+			  <article>
+					<input type="radio" name="marital_status" value="single">
+					<label for="single">Single, never married</label>
+			  	<input type="radio" name="marital_status" value="married">
+			  	<label for="married">Married or domestic partnership</label>
+			  	<input type="radio" name="marital_status" value="widowed">
+			  	<label for="widowed">Widowed</label>
+ 			  	<input type="radio" name="marital_status" value="divorced">
+			  	<label for="divorced">Divorced</label>
+			  	<input type="radio" name="marital_status" value="separated">
+			  	<label for="separated">Separated</label>
+			  </article>
+			  <hr />
+
+			  <p>What is your employment status?</p>
+			  <article>
+					<input type="radio" name="employment_status" value="employed">
+					<label for="employed">Employed for wages</label>
+			  	<input type="radio" name="employment_status" value="self-employed">
+			  	<label for="self-employed">Self-employed</label>
+			  	<input type="radio" name="employment_status" value="looking">
+			  	<label for="looking">Out of work and looking for work</label>
+ 			  	<input type="radio" name="employment_status" value="unemployed">
+			  	<label for="unemployed">Out of work but not currently looking</label>
+			  	<input type="radio" name="employment_status" value="homemaker">
+			  	<label for="homemaker">A homemaker</label>
+			  	<input type="radio" name="employment_status" value="student">
+					<label for="student">A student</label>
+			  	<input type="radio" name="employment_status" value="military">
+			  	<label for="military">Military</label>
+			  	<input type="radio" name="employment_status" value="retired">
+			  	<label for="retired">Retired</label>
+ 			  	<input type="radio" name="employment_status" value="disabled">
+			  	<label for="disabled">Unable to work</label>
+			  </article>
+			  <hr />
+
+			  <input type='hidden' name='form_id' value='demograhic-add-form-v1.2' />
+				<input type='submit' value='Submit Survey' />
+
+			</fieldset>  
+		</form>
+</body>
+</html>
