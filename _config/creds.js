@@ -19,5 +19,5 @@ const token_secret = 'hijklmno';
 exports.root_creds = root_creds;
 exports.admin_creds = admin_creds;
 exports.user_creds = user_creds;
-exports. pass_secret = pass_secret;
+exports.pass_secret = pass_secret;
 exports.token_secret = token_secret;

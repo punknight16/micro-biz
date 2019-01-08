@@ -39,6 +39,8 @@ function loginInteractor(data, config, args, ext, cb){
 				};
 			}
 			break;
+		default: 
+			return cb('This is just an alpha test. We will add your login soon!');
 	}
 	
 	config.token_arr.push(token_obj);

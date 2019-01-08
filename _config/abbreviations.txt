@@ -4,7 +4,7 @@ c - cred_id
 d - demographic_id
 e - engagment_id
 f - form_id
-g -
+g - group_id (cred_organization_link)
 h - 
 i - 
 j
@@ -16,8 +16,8 @@ o - organization_id
 p - permission_id
 q -
 r -
-s - sale
-t- token
+s - sale_id
+t- token_id
 u - universal_id
 v - venture_id
 w
