@@ -1,8 +1,10 @@
 var fs = require('fs');
 var AWS = require("aws-sdk");
 
+
 var s3 = new AWS.S3({
-	"region": "us-west-2"
+	"region": "us-west-2",
+	"accessKeyId": require('../_config/aws_creds.js').Access_key_ID
 });
 
 var bucket = 'micro-biz';
