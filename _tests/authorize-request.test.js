@@ -1,4 +1,5 @@
 var assert = require('assert');
+var compareKeys = require('../_scripts/compare-keys');
 var authorizeRequest = require('../_scripts/authorize-request');
 
 describe('authorizeRequest', function(){
@@ -31,7 +32,7 @@ describe('authorizeRequest', function(){
 			token_secret: ''
 		};
 		var args = {token_id: 't0', cred_id: 'c0', public_token: 'k0', resource_id: 'r1', universal_id: 'r1'};
-		var ext = {};
+		var ext = { compareKeys: compareKeys };
 		authorizeRequest(data, config, args, ext, function(err, boo){
 			assert(boo);
 			done();

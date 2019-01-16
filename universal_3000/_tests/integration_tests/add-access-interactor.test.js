@@ -1,5 +1,5 @@
 var assert = require('assert');
-var addAccessInteractor = require('../../_scripts/add-access-interactor');
+var addAccessInteractor = require('../../_scripts/add-permission-interactor');
 
 describe('addAccessInteractor', function(){
 	it('should add permission to authorization_data', function(done){

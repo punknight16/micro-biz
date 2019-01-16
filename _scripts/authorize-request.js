@@ -3,7 +3,7 @@ function authorizeRequest(data, config, args, ext, cb){
 		typeof config == 'undefined' ||
 		typeof args == 'undefined' ||
 		typeof ext == 'undefined') return cb('bad paramaters for auth req');
-	
+	var compareKeys = ext.compareKeys;
 	requestPrivateKey(config.token_arr, args.token_id, function(err, token_obj){
 		if(err) return cb(err);
 		
@@ -13,7 +13,7 @@ function authorizeRequest(data, config, args, ext, cb){
 			
 			compareKeys(args.public_token, token_obj.private_token, config.token_secret, function(err, sign_boo){			
 				if(err) return cb(err);
-				return cb(null, token_obj.cred_id);
+				return cb(null, token_obj);
 			});	
 		});	
 	})
@@ -33,6 +33,11 @@ function requestPrivateKey(token_arr, token_id, cb){
 }
 
 function comparePermission(authorization_data, cred_id, resource_id, universal_id, cb){
+	console.log('authorization_data: ', authorization_data);
+	console.log('cred_id: ', cred_id);
+	console.log('resource_id: ', resource_id);
+	console.log('universal_id: ', universal_id);
+	
 	if(typeof authorization_data == 'undefined' ||
 		typeof cred_id == 'undefined' ||
 		typeof resource_id == 'undefined' ||
@@ -63,26 +68,6 @@ function comparePermission(authorization_data, cred_id, resource_id, universal_i
 	} 
 	
 	return cb(null, true);
-}
-
-function compareKeys(public_token, private_token, token_secret, cb){
-	if(typeof public_token == 'undefined' ||
-		typeof private_token == 'undefined' ||
-		typeof token_secret == 'undefined') return cb('bad paramaters for compare permission');
-
-	var boo = false;
-	switch(public_token){
-		case 'k0':
-			if(private_token=='l0') boo = true;
-			break;
-		case 'k1':
-			if(private_token=='l1') boo = true;
-			break;
-		case 'k2':
-			if(private_token=='l2') boo = true;
-			break;
-	}
-	return cb(null, boo);
 }
 
 module.exports = authorizeRequest;

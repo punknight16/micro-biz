@@ -1,0 +1,26 @@
+<html id='goals-add-form-v1.2'>
+<head>
+		<style>
+			textarea {
+				overflow: 'scroll';
+				resize: none;
+			}
+		</style>
+</head>
+<body>
+		<form action="/goals/add/submit" method="post">
+			<fieldset>
+				<legend>Add Goals Data</legend>
+				<input type='text' name='token_id' placeholder='token_id' />
+				<input type='text' name='public_token' placeholder='public_token' />
+				<input type='text' name='cred_id' placeholder='cred_id' /><br />
+				<label for='goal_name'>Goal Name:</label>				
+				<input type='text' name='goal_name' placeholder='goal_name' /><br />
+				<label for='goal_description'>A Brief Description of your goal...</label><br />
+				<textarea rows="4" cols="50" name="goal_description"></textarea><br />
+				<input type='hidden' name='form_id' value='goals-add-form-v1.2' />		  
+				<input type='submit' value='Add Goals Data' />
+			</fieldset>
+		</form>
+</body>
+</html>

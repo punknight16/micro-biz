@@ -30,6 +30,7 @@ var getVenture = require('./_scripts/get-venture');
 var addCredInteractor = require('./_scripts/add-cred-interactor.js');
 var addOrganizationInteractor = require('./_scripts/add-organization-interactor.js');
 var addGroupInteractor = require('./_scripts/add-group-interactor.js');
+var compareKeys = require('../_scripts/compare-keys');
 var loadFileByFileId, storeFileByFileId;
 
 
@@ -146,12 +147,23 @@ var server = http.createServer(function(req, res){
 								if(err) return res.end(JSON.stringify(err));
 								storeFileByFileId(file_arr, write_queue, 'f3', data.engagements_data, function(err){
 									if(err) return res.end(JSON.stringify(err));
-									res.end(JSON.stringify({
+									var token = token_obj.cred_id+'.'+token_obj.token_id+'.'+token_obj.public_token;
+									res.write('<!DOCTYPE html>');
+									res.write('<head>');
+									res.write('<script>');
+									res.write('document.cookie = "token='+token+'; path=/";');
+									res.write('</script>');
+									res.write('</head>');
+									res.write('<body>');
+									res.write(JSON.stringify({
 										cred_id: token_obj.cred_id,
 										token_id: token_obj.token_id, 
 										public_token: token_obj.public_token,
 										engagement_id: engagement_id
 									}));
+									res.write('</body>');
+									res.write('</html>');
+									res.end();
 								});
 							});
 						})
@@ -163,6 +175,10 @@ var server = http.createServer(function(req, res){
       break;	
 		case 'permissions':
 			switch(url_params[2]){
+				case 'manager':
+					console.log(JSON.stringify(req.headers.cookie));
+					res.end('permissions manager template');
+					break;
 				case 'list':
 					switch(url_params[3]){
 						case 'form':
@@ -181,7 +197,7 @@ var server = http.createServer(function(req, res){
 									public_token: post_obj.public_token
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -232,7 +248,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.cred_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1A, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -310,7 +326,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.universal_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -360,7 +376,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.organization_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -427,7 +443,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.cred_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -483,7 +499,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.cred_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -533,7 +549,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.cred_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -603,7 +619,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.cred_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) res.end(JSON.stringify(err));
@@ -653,7 +669,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.universal_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -816,7 +832,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.cred_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) return res.end(JSON.stringify(err));
@@ -866,7 +882,7 @@ var server = http.createServer(function(req, res){
 									universal_id: post_obj.venture_id
 								};
 								var ext1 = {
-								//functions
+									compareKeys: compareKeys
 								};
 								authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
 									if(err) res.end(JSON.stringify(err));
@@ -1009,8 +1025,58 @@ var server = http.createServer(function(req, res){
 					});
 					break;
 				default:
-					res.end('bad request in the login route');
+					res.end('bad request in the register route');
       }
+      case 'sign':
+			switch(url_params[2]){
+				/*case 'form':
+					var stream = fs.createReadStream(__dirname+'/_pages/sign.html');
+					stream.pipe(res);
+					break;*/
+				case 'submit':
+					console.log('received sign req');
+					receivePostData(req, function(err, post_obj){
+						console.log('im here1A: ', err);
+						if(err) res.end(JSON.stringify(err));
+						var data1 = {authorization_data: data.authorization_data};
+						var config1 = {token_arr: token_arr, token_secret: TOKEN_SECRET};
+						var args1 = {
+							token_id: post_obj.token_id,
+							public_token: post_obj.public_token,
+							resource_id: post_obj.resource_id,
+							universal_id: post_obj.universal_id
+						};
+						var ext1 = {
+							compareKeys: compareKeys
+						};
+						authorizeRequest(data1, config1, args1, ext1, function(err, token_obj){
+							console.log('im here1B: ', err);
+							if(err) return res.end(JSON.stringify(err));
+							if(typeof token_obj == 'undefined') return res.end('not authorized');
+							var data2 = {engagements_data: data.engagements_data};
+							var config2 = {last_engagement_arr: last_engagement_arr};
+							var args2 = {cred_id: token_obj.cred_id, form_id: post_obj.form_id};
+							var ext2 = {}
+							trackEngagement(data2, config2, args2, ext2, function(err, engagement_id){
+								console.log('im here1C: ', err);
+								if(err) return res.end(JSON.stringify(err));
+								storeFileByFileId(file_arr, write_queue, 'f3', data.engagements_data, function(err){
+									if(err) res.end(JSON.stringify(err));
+									var res_obj = {
+										token_id: token_obj.token_id,
+										cred_id: token_obj.cred_id,
+										private_token: token_obj.private_token,
+										engagement_id: engagement_id
+									}
+									res.end(JSON.stringify(res_obj))
+								});
+							});
+						});
+					});
+					break;
+				default: 
+					res.end('bad request in the sign route');
+			}
       break;
 		default:
 			res.end('bad request');
@@ -1018,4 +1084,3 @@ var server = http.createServer(function(req, res){
 }).listen(process.env.PORT || 3000, function(){
 	console.log('universal server running on port 3000');
 });
-

@@ -11,7 +11,7 @@ describe('listSalesInteractor', function(){
 		]};
 		var config = {};
 		var args = {
-			universal_id: 'a1'
+			universal_id: 'r0'
 		};
 		var ext = {
 		//functions

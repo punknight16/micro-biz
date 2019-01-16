@@ -1,7 +1,7 @@
 var assert = require('assert');
-var listMarketInteractor = require('../../_scripts/list-market-interactor');
+var listMarketInteractor = require('../../_scripts/list-analytics-interactor');
 
-var market_data = [
+var analytics_data = [
 	{
 		market_id: 'm0',
 		cred_id: 'c0',
@@ -16,7 +16,7 @@ var market_data = [
 
 describe('listMarketInteractor', function(){
 	it('should list all market_objs from market_data ', function(done){
-		var data = {market_data: market_data};
+		var data = {analytics_data: analytics_data};
 		var config = {engagement_id: 'e0'};
 		var args = {
 			cred_id: 'r0'

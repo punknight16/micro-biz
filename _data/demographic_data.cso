@@ -1,1 +1,32 @@
-[{"demographic_id":"d-test1","cred_id":"c0","age":"25-34","ethnicity":"white","education":"professional_degree","marital_status":"married","employment_status":"self-employed","engagement_id":"e7"},{"demographic_id":"d-test2","cred_id":"c1","age":"35-44","ethnicity":"black","education":"professional_degree","marital_status":"married","employment_status":"self-employed","engagement_id":"e7"},{"demographic_id":"d-test3","cred_id":"c2","age":"55-64","ethnicity":"white","education":"professional_degree","marital_status":"married","employment_status":"self-employed","engagement_id":"e7"},{"demographic_id":"d-test0.ddasmd7dcjo","cred_id":"c3","age":"%3C12","ethnicity":"white","education":"none","marital_status":"single","employment_status":"employed","engagement_id":"e-test0.breu2emft2"}]
+[
+	{
+		"demographic_id": "d-test1",
+		"cred_id": "c0",
+		"age": "25-34",
+		"ethnicity": "white",
+		"education": "professional_degree",
+		"marital_status": "married",
+		"employment_status": "self-employed",
+		"engagement_id": "e7"
+	},
+	{
+		"demographic_id": "d-test2",
+		"cred_id": "c1",
+		"age": "35-44",
+		"ethnicity": "black",
+		"education": "professional_degree",
+		"marital_status": "married",
+		"employment_status": "self-employed",
+		"engagement_id": "e7"
+	},
+	{
+		"demographic_id": "d-test3",
+		"cred_id": "c2",
+		"age": "55-64",
+		"ethnicity": "white",
+		"education": "professional_degree",
+		"marital_status": "married",
+		"employment_status": "self-employed",
+		"engagement_id": "e7"
+	}
+]
