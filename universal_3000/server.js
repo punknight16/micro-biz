@@ -1,12 +1,14 @@
 var http = require('http');
 var fs = require('fs');
 var crypto = require('crypto');
+var mu = require("mu2-updated"); //mustache template engine
 
 const PASS_SECRET = require('../_config/creds').pass_secret;
 const TOKEN_SECRET = require('../_config/creds').token_secret;
 const env = process.env.NODE_ENV || 'development';
 
 var receivePostData = require('../_scripts/receive-post-data.js');
+var receiveCookieData = require('../_scripts/receive-cookie-data.js');
 var authorizeRequest = require('../_scripts/authorize-request.js');
 var trackEngagement = require('../_scripts/track-engagement.js');
 var loginInteractor = require('./_scripts/login-interactor.js');
@@ -112,6 +114,31 @@ loadFileByFileId(file_arr, 'f9', function(groups_data){
 	data.groups_data = groups_data;
 });
 
+var universal_data = [
+	{"universal_id": "c0", "universal_name": "punknight"},
+	{"universal_id": "c1", "universal_name": "lopmiller"},
+	{"universal_id": "c2", "universal_name": "riley"},
+	{"universal_id": "r0", "universal_name": "root access"},
+	{"universal_id": "r1", "universal_name": "/permissions/list"},
+	{"universal_id": "r2", "universal_name": "/permissions/add"},
+	{"universal_id": "r3", "universal_name": "/sales/list"},
+	{"universal_id": "r4", "universal_name": "/sales/add"},
+	{"universal_id": "r5", "universal_name": "/engagements/list"},
+	{"universal_id": "r6", "universal_name": "/demographics/list"},
+	{"universal_id": "r7", "universal_name": "/demographics/add"},
+	{"universal_id": "r8", "universal_name": "/ventures/list"},
+	{"universal_id": "r9", "universal_name": "/ventures/add"},
+	{"universal_id": "r10", "universal_name": "/analytics/list"},
+	{"universal_id": "r11", "universal_name": "/analytics/add"},
+	{"universal_id": "r12", "universal_name": "/goals/list"},
+	{"universal_id": "r13", "universal_name": "/goals/add"},
+	{"universal_id": "r14", "universal_name": "/tasks/list"},
+	{"universal_id": "r15", "universal_name": "/tasks/add"},
+	{"universal_id": "r16", "universal_name": "/metrics/list"},
+	{"universal_id": "r17", "universal_name": "/metrics/add"},
+	{"universal_id": "o1", "universal_name": "family access"}
+];
+
 var server = http.createServer(function(req, res){
 	var url_params = req.url.split('/');
 	switch(url_params[1]){
@@ -147,7 +174,7 @@ var server = http.createServer(function(req, res){
 								if(err) return res.end(JSON.stringify(err));
 								storeFileByFileId(file_arr, write_queue, 'f3', data.engagements_data, function(err){
 									if(err) return res.end(JSON.stringify(err));
-									var token = token_obj.cred_id+'.'+token_obj.token_id+'.'+token_obj.public_token;
+									var token = token_obj.token_id+'.'+token_obj.public_token+'.'+token_obj.cred_id;
 									res.write('<!DOCTYPE html>');
 									res.write('<head>');
 									res.write('<script>');
@@ -176,8 +203,47 @@ var server = http.createServer(function(req, res){
 		case 'permissions':
 			switch(url_params[2]){
 				case 'manager':
-					console.log(JSON.stringify(req.headers.cookie));
-					res.end('permissions manager template');
+					receiveCookieData(req, function(err, cookie_obj){
+						var data1 = {authorization_data: data.authorization_data};
+						var config1 = {token_arr: token_arr, token_secret: ''};
+						var args1 = {
+							token_id: cookie_obj.token_id,
+							resource_id: 'r1',
+							universal_id: cookie_obj.cred_id,
+							public_token: cookie_obj.public_token
+						};
+						var ext1 = {
+							compareKeys: compareKeys
+						};
+						authorizeRequest(data1, config1, args1, ext1, function(err, cred_id){
+							if(err) return res.end(JSON.stringify(err));
+							if(typeof cred_id == 'undefined') res.end('not authorized');
+							var data2 = {engagements_data: data.engagements_data};
+							var config2 = {last_engagement_arr: last_engagement_arr};
+							var args2 = {cred_id: cred_id, form_id: 'permission_manager'};
+							var ext2 = {}
+							trackEngagement(data2, config2, args2, ext2, function(err, engagement_id){
+								if(err) return res.end(JSON.stringify(err));
+								storeFileByFileId(file_arr, write_queue, 'f3', data.engagements_data, function(err){
+									if(err) return res.end(JSON.stringify(err));
+									var data3 = {authorization_data: data.authorization_data};
+									var config3 = {};
+									var args3 = {universal_id: cookie_obj.cred_id};
+									var ext3 = {
+										//functions
+									};						
+									listPermissionsInteractor(data3, config3, args3, ext3, function(err, permissions_arr){
+										swapIdForName(universal_data, permissions_arr, function(err, data){
+											changeUniversalNameToAccessType(data, function(err, access_data){
+												var stream = mu.compileAndRender("./_templates/permissions.html", {Objects: access_data});
+												stream.pipe(res);	
+											});
+										});
+									});
+								});
+							});
+						});
+					});
 					break;
 				case 'list':
 					switch(url_params[3]){
@@ -1084,3 +1150,29 @@ var server = http.createServer(function(req, res){
 }).listen(process.env.PORT || 3000, function(){
 	console.log('universal server running on port 3000');
 });
+
+function swapIdForName(universal_data, args_data, cb){
+	var swapped_data = args_data.map((obj)=>{
+		var swapped_obj = {}
+		for (var prop in obj) {
+			var uni_obj = universal_data.find((item)=>{
+				return (item.universal_id == obj[prop])
+			})
+			if(typeof uni_obj != 'undefined'){
+				swapped_obj[prop] = uni_obj.universal_name;
+			}
+		}
+		return swapped_obj;
+	});
+	return cb(null, swapped_data);
+}
+
+function changeUniversalNameToAccessType(data, cb){
+	var changed_data = data.map((obj)=>{
+		if(obj.cred_id == obj.universal_id){
+			obj.universal_id = 'user access';
+		}
+		return obj;
+	});
+	return cb(null, changed_data);
+}
